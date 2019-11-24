@@ -1,20 +1,41 @@
 <template>
   <div class="container">
     <div class="column1">
-      19
+      {{ weatherInfo.temperature}}
     </div>
     <div class="column2">
       <!-- col -->
       <div class="row1">°</div>
-      <div class="row2">晴|良 53 ></div>
-      <div class="row3">比昨天低1°C</div>
+      <div class="row2 iconfont">
+        {{ weatherInfo.weather}}<span>&#xe600;</span>{{ weatherInfo.winddirection}}风
+        <span>&#xe670;</span>
+      </div>
+      <div class="row3">空气湿度&nbsp;{{ weatherInfo.humidity}}</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'temperature'
+  name: 'HomeTemperature',
+  props: {
+    weatherInfo: Object
+  },
+  methods: {
+    descWindPower(windPower){
+      let desc;
+      if(windPower > 8){
+        desc = '狂风'
+      }else if(windPower > 5){
+        desc = '强风'
+      }else if(windPower > 3){
+        desc = '中风'
+      }else{
+        desc = '弱风'
+      }
+      return desc;
+    }
+  }
 }
 </script>
 
@@ -23,25 +44,35 @@ export default {
     display flex
     justify-content: flex-start
     align-items center
-    margin-top 6.8rem
+    margin-top 5.8rem
+    padding-left: 0.46rem;
     height 2.25rem
-    background #639ef73d
     color #68a1eb
     .column1
-      font-size 2.2rem
+      font-size 2.25rem
     .column2
+      box-sizing border-box
       display flex
       flex-direction: column
       height 100%
       padding-left .15rem
+      padding-bottom 0.34rem
       .row1
-        height 1.2rem
+        height .5rem
+        flex 1
         font-size 1.2rem
         font-weight bold
       .row2
+        padding-bottom .2rem
         text-indent .04rem
         font-size .34rem
+        font-weight 600
+        opacity .8
+        span
+          padding 0 .06rem
       .row3
         text-indent .04rem
+        // font-weight 100
+        opacity 0.6
         
 </style>

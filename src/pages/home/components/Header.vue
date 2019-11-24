@@ -1,6 +1,6 @@
 <template>
-  <div class="header">
-    <div class="city">中山市</div>
+  <div class="container">
+    <div class="city">{{ city }}</div>
     <div class="left">
       <span class="add iconfont">&#xe604;</span>
       <span class="setting iconfont">&#xe60c;</span>
@@ -10,24 +10,30 @@
 
 <script>
 export default {
-  name: 'HomeHeader'
+  name: 'HomeHeader',
+  props: {
+    city: String,
+  }
 }
 </script>
 
 <style lang="stylus" scoped>
-  .header
+  .container
     display flex
     justify-content space-between
     padding-right .42rem
+    padding-left: 0.56rem;
     padding-top .2rem
     line-height .86rem
+    font-weight bold
     .city
-      font-size .4rem
+      font-size .48rem
+      opacity .65
     .left
       .add
         font-size .48rem
         margin-right .42rem
+        opacity .8
       .setting 
         font-size .46rem
-        font-weight bold
 </style>
