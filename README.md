@@ -1,6 +1,6 @@
 # vue-weather
 
-> A Vue.js project
+> 基于Vue.js高仿魅族Flyme8天气应用
 
 ## Build Setup
 
