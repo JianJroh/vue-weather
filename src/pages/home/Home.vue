@@ -2,7 +2,7 @@
   <div>
     <HomeHeader :city='city'/>
     <HomeTemperature :weatherInfo='livesWeather'/>
-    <HomeForecast/>
+    <HomeForecast :weatherInfo='forecastsWeather'/>
     <HomeList :weatherInfo='forecastsWeather'/>
   </div>
 </template>
@@ -24,9 +24,9 @@ export default {
   },
   data(){
     return {
-      city: '',
-      livesWeather:{},
-      forecastsWeather:{},
+      city: undefined,  //String
+      livesWeather:undefined,   //Object
+      forecastsWeather:undefined,      //Object
     }
   },
   methods: {
@@ -77,5 +77,5 @@ export default {
 
 <style lang="stylus">
   body
-    background #639ef73d
+    background-image: linear-gradient(135deg, #c0d7f4ad 10%, #fcfffe 100%);
 </style>

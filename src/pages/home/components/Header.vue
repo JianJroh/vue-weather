@@ -12,7 +12,10 @@
 export default {
   name: 'HomeHeader',
   props: {
-    city: String,
+    city: {
+      type: String,
+      default:'广州11'
+    },
   }
 }
 </script>

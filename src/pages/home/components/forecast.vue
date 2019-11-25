@@ -17,7 +17,7 @@
         <img src="~images/t1.png" alt="">
       </div>
       <div class="row">{{item.desc}}</div>
-      <div class="row">{{item.time}}</div>
+      <div class="row">{{+reportTime.slice(-8,-6)+index+':00'}}</div>
     </swiper-slide>
   </swiper>
 </template>
@@ -32,8 +32,22 @@ export default {
     swiper,
     swiperSlide
   },
+  props: {
+    weatherInfo: Object
+  },
+  watch: {
+    weatherInfo: function(newVal,oldVal){
+      this.reportTime = newVal.reporttime;
+    }
+  },
+  filters:{
+    time2hour(time){
+      return time.slice(-8,-6)
+    },
+  },
   data(){
     return {
+      reportTime: '',
       list:[
         {
           temp:'19°',
@@ -57,7 +71,6 @@ export default {
 
 <style lang="stylus" scoped>
   .container
-    background #deeffe
     height 2rem
     padding-left: 0.36rem;
     display flex
@@ -82,7 +95,6 @@ export default {
         &:nth-child(3),&:nth-child(4)
           color #a3b0bb
     .item
-      background #dfeefa
       width 1.45rem
       height 100%
       padding .14rem 0

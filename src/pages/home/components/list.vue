@@ -1,17 +1,17 @@
 <template>
   <div class="container">
-    <div class="row" v-for="(item,index) of Array(5)" :key="index">
+    <div class="row" v-for="(item,index) of list" :key="index">
       <div class="date">
-        <span>今天</span>
-        <span>11/19</span>
+        <span>{{ }}</span>
+        <span>{{ dayFormat(item.week) }}</span>
       </div>
       <div class="weather">
         <img src="~images/t2.png" alt="">
-        <span>晴</span>
+        <span>{{ item.dayweather}}</span>
       </div>
       <div class="temp">
-        <span>15°</span>
-        <span>23°</span>
+        <span>{{ item.nighttemp}}°</span>
+        <span>{{ item.daytemp}}°</span>
       </div>
     </div>
   </div>
@@ -25,19 +25,41 @@ export default {
   },
   data(){
     return {
-      list: this.weatherInfo,
-      num: undefined,
+      list: [],
+      reportWeek: undefined,
+      reportTime: undefined,
     }
   },
   watch: {
     weatherInfo: function(newVal,oldVal){
-      this.list = newVal
+      this.list = newVal.casts;
+      this.reportWeek = newVal.casts[0].week;
+      this.reportTime = newVal.reporttime;
+    }
+  },
+  filters:{
+    dateFormat(val){
+      return val.slice(5,7)+'/'+val.slice(8)
+    },
+  },
+  methods: {
+    dayFormat(week){
+      week = Number(week);
+      let day = '';
+      const dayArr = ['一','二','三','四','五','六','日'];
+      let flag = week - this.reportWeek;
+      if(flag == 0){
+        day = '今天'
+      }else if( flag == 1 || flag == -6){
+        day = '明天'
+      }else{
+        day = '周' + dayArr[week - 1];
+      }
+      return day;
     }
   },
   mounted(){
-    // this.list = this.weatherInfo.casts;
-    // console.log(this.list)
-    console.log(this.weatherInfo)
+
   }
 }
 </script>
@@ -47,7 +69,6 @@ export default {
     padding-top .5rem
     padding-left .56rem
     padding-right .6rem
-    background #f2f9ff
     .row
       height .65rem
       padding-bottom .28rem

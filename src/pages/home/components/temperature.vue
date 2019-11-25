@@ -19,7 +19,17 @@
 export default {
   name: 'HomeTemperature',
   props: {
-    weatherInfo: Object
+    weatherInfo: {
+      type:Object,
+      default(){
+        return {
+          temperature: '11',
+          weather: '晴',
+          winddirection: '东',
+          humidity: '66'
+        }
+      }
+    },
   },
   methods: {
     descWindPower(windPower){
