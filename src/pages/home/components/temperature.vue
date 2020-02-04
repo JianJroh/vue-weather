@@ -55,7 +55,7 @@ export default {
     justify-content: flex-start
     align-items center
     margin-top 5.8rem
-    padding-left: 0.46rem;
+    padding-left: 0.36rem;
     height 2.25rem
     color #68a1eb
     .column1

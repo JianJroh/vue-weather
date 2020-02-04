@@ -26,8 +26,8 @@ export default {
   data(){
     return {
       list: [],
-      reportWeek: undefined,
-      reportTime: undefined,
+      reportWeek: '',
+      reportTime: '',
     }
   },
   watch: {
@@ -67,7 +67,7 @@ export default {
 <style lang="stylus" scoped>
   .container
     padding-top .5rem
-    padding-left .56rem
+    padding-left .3rem
     padding-right .6rem
     .row
       height .65rem
@@ -76,7 +76,7 @@ export default {
       justify-content space-between
       align-items center
       font-size .32rem
-      .date,.temp,.weather
+      .date,.weather,.temp
         span
           &:nth-child(1)
             font-weight bold
@@ -89,7 +89,4 @@ export default {
           width .6rem
         span 
           font-size .3rem
-
-
-
 </style>

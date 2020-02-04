@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <HomeHeader :city='city'/>
+  <div class="home">
+    <HomeHeader v-if="city" :city='city.name'/>
     <HomeTemperature :weatherInfo='livesWeather'/>
-    <HomeForecast :weatherInfo='forecastsWeather'/>
+    <HomeForecast :weatherInfo='livesWeather'/>
     <HomeList :weatherInfo='forecastsWeather'/>
   </div>
 </template>
@@ -13,6 +13,9 @@ import HomeTemperature from './components/Temperature'
 import HomeForecast from './components/Forecast'
 import HomeList from './components/List'
 import axios from 'axios'
+axios.defaults.baseURL = 'https://restapi.amap.com/v3';
+import store from '@/storage/store.js'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Home',
@@ -24,58 +27,51 @@ export default {
   },
   data(){
     return {
-      city: undefined,  //String
-      livesWeather:undefined,   //Object
-      forecastsWeather:undefined,      //Object
+      livesWeather:{},  
+      forecastsWeather:{}, 
+    }
+  },
+  computed:{        
+    ...mapState('city',['cities']),    
+    ...mapGetters('city',['city']),
+  },    
+  watch:{
+    city(city,oldCity){
+      this.getWeatherInfo(city.adcode,'base');
+      this.getWeatherInfo(city.adcode,'all');
     }
   },
   methods: {
-    async getCityWeather(){
-      const res = await axios.get('https://restapi.amap.com/v3/ip', {
-        params: {
+    ...mapActions('city',['getCities','addCity','setCities']), 
+    getWeatherInfo(adcode,extensions='base'){
+      axios({
+        url:'/weather/weatherInfo',
+        params:{
           key: '31b990789f61b2d0c7f47c51498ed405',
+          city:adcode,
+          extensions
+        },
+      }).then(res=>{
+        // console.log(res)
+        if(res.data.status === '1'){
+          if(extensions == 'base'){
+            this.livesWeather = res.data.lives[0]
+          }else{
+            this.forecastsWeather = res.data.forecasts[0]
+          }
         }
-      });
-      if(res.data.status == 1){
-        this.city = res.data.city;
-        this.getWeather(res.data.adcode);
-        console.log(this.city);
-      }
-    },
-    async getWeather(city_adcode){
-      const res1 = await axios.get('https://restapi.amap.com/v3/weather/weatherInfo', {
-        params: {
-          key: '31b990789f61b2d0c7f47c51498ed405',
-          city:city_adcode,
-          extensions: 'base',
-        }
-      });
-      if(res1.data.status == 1){
-        this.livesWeather = res1.data.lives[0];
-        console.log(res1.data.lives[0])
-      }
-      const res2 = await axios.get('https://restapi.amap.com/v3/weather/weatherInfo', {
-        params: {
-          key: '31b990789f61b2d0c7f47c51498ed405',
-          city:city_adcode,
-          extensions: 'all',
-        }
-      });
-      if(res2.data.status == 1){
-        this.forecastsWeather = res2.data.forecasts[0];
-        console.log(res2.data.forecasts[0])
-      }
-    },
-    
+      })
+    }
     
   },
   mounted() {
-    this.getCityWeather();
+    // console.log('mounted')
+    this.getCities();
   }
 }
 </script>
 
-<style lang="stylus">
-  body
+<style lang="stylus" scoped>
+  .home
     background-image: linear-gradient(135deg, #c0d7f4ad 10%, #fcfffe 100%);
 </style>

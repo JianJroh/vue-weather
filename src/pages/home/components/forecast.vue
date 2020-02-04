@@ -3,7 +3,7 @@
     <swiper-slide class="tips">
       <div class="row">短时预报</div>
       <div class="row iconfont">&#xe601;</div>
-      <div class="row">无雨</div>
+      <div class="row">{{weatherInfo.weather}}</div>
       <div class="row">放心出行</div>
     </swiper-slide>
     <swiper-slide 
@@ -11,13 +11,13 @@
     v-for="(item,index) of Array(12).fill(list[0])" 
     :key="index"
     >
-      <div class="row">{{item.temp}}</div>
+      <div class="row">{{weatherInfo.temperature}}</div>
       <div class="row">
         <!-- <img :src=item.iconUrl alt=""> -->
         <img src="~images/t1.png" alt="">
       </div>
-      <div class="row">{{item.desc}}</div>
-      <div class="row">{{+reportTime.slice(-8,-6)+index+':00'}}</div>
+      <div class="row">{{weatherInfo.weather}}</div>
+      <div class="row">{{reportTime | time2hour(index)}}</div>
     </swiper-slide>
   </swiper>
 </template>
@@ -41,8 +41,12 @@ export default {
     }
   },
   filters:{
-    time2hour(time){
-      return time.slice(-8,-6)
+    time2hour(time,index){
+      let hour = +time.slice(-8,-6)+index;
+      if(hour > 23){
+        hour = hour - 24;
+      }
+      return ('00' + hour).slice(-2) + ':00'
     },
   },
   data(){
