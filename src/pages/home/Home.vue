@@ -1,9 +1,15 @@
 <template>
-  <div class="home">
-    <HomeHeader v-if="city" :city='city.name'/>
-    <HomeTemperature :weatherInfo='livesWeather'/>
-    <HomeForecast :weatherInfo='livesWeather'/>
-    <HomeList :weatherInfo='forecastsWeather'/>
+  <div>
+    <!-- <HomeHeader :city='cityName'/> -->
+    <pull-to 
+      :top-load-method="refresh"
+      :top-block-height="15"
+      :distance-index="3.5"
+    >
+      <HomeTemperature :weatherInfo='livesWeather'/>
+      <HomeForecast :weatherInfo='livesWeather'/>
+      <HomeList :weatherInfo='forecastsWeather'/>
+    </pull-to>
   </div>
 </template>
 
@@ -16,6 +22,7 @@ import axios from 'axios'
 axios.defaults.baseURL = 'https://restapi.amap.com/v3';
 import store from '@/storage/store.js'
 import { mapState, mapGetters, mapActions } from 'vuex'
+import PullTo from "vue-pull-to";
 
 export default {
   name: 'Home',
@@ -23,26 +30,22 @@ export default {
     HomeHeader,
     HomeTemperature,
     HomeForecast,
-    HomeList
+    HomeList,
+    PullTo
+  },
+  props:{
+    city:{
+      type: Object,
+    }
   },
   data(){
     return {
       livesWeather:{},  
       forecastsWeather:{}, 
-    }
-  },
-  computed:{        
-    ...mapState('city',['cities']),    
-    ...mapGetters('city',['city']),
-  },    
-  watch:{
-    city(city,oldCity){
-      this.getWeatherInfo(city.adcode,'base');
-      this.getWeatherInfo(city.adcode,'all');
+      cityName:'',
     }
   },
   methods: {
-    ...mapActions('city',['getCities','addCity','setCities']), 
     getWeatherInfo(adcode,extensions='base'){
       axios({
         url:'/weather/weatherInfo',
@@ -61,17 +64,19 @@ export default {
           }
         }
       })
+    },
+    refresh(loaded) {
+      setTimeout(() => {
+        // this.dataList.reverse();
+        loaded("done");
+      }, 2000);
     }
-    
   },
   mounted() {
     // console.log('mounted')
-    this.getCities();
+    console.log(this.city.name);
+    this.getWeatherInfo(this.city.adcode,'base');
+    this.getWeatherInfo(this.city.adcode,'all');
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-  .home
-    background-image: linear-gradient(135deg, #c0d7f4ad 10%, #fcfffe 100%);
-</style>
