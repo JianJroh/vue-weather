@@ -16,6 +16,7 @@
         </div>
       </div>
     </div>
+    <div><h2 @click="handleSend">test路由传参</h2></div>
   </div>
 </template>
 
@@ -45,6 +46,16 @@ export default {
         this.addCity({name:cityName});
       }
       // console.log(cityName)
+    },
+    handleSend(){
+      console.log(1);
+      this.$router.push({
+        path: '/',
+        params: {
+          // city: '城市city'
+          id:'666hhh'
+        }
+      })
     }
   },
 }

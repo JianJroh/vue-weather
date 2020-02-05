@@ -1,11 +1,7 @@
 <template>
   <div>
     <search-bar @change="getKeywords"></search-bar>
-    <!-- <city-list></city-list> -->
-    <!-- <search-list></search-list> -->
-    <keep-alive>
-      <component :is="currentListComponent" :keywords=keywords></component>
-    </keep-alive>
+    <component :is="currentListComponent" :keywords=keywords></component>
   </div>
 </template>
 
@@ -44,6 +40,9 @@ export default {
       }
     },
   },
+  mounted(){
+    console.log('search');
+  }
 };
 </script>
 

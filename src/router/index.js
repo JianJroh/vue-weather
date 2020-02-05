@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/pages/home/Home'
+import HomeIndex from '@/pages/home/Index'
 import City from '@/pages/city/City'
 import CitySearch from '@/pages/search/Search'
 import Set from '@/pages/set/Set'
@@ -11,8 +12,9 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'Index',
+      component: HomeIndex,
+      // props:{default: true,}
     }, {
       path: '/city',
       name: 'City',

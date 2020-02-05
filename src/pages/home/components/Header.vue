@@ -14,7 +14,6 @@ export default {
   props: {
     city: {
       type: String,
-      default:'广州11'
     },
   }
 }
@@ -22,10 +21,15 @@ export default {
 
 <style lang="stylus" scoped>
   .container
+    position fixed
+    z-index 9
+    top 0
+    width 100%
+    box-sizing border-box
     display flex
     justify-content space-between
     padding-right .42rem
-    padding-left: 0.3rem;
+    padding-left: 0.35rem;
     padding-top .2rem
     line-height .86rem
     font-weight bold

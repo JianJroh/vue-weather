@@ -1,7 +1,9 @@
 <template>
   <div>
     <NavigationBar :title="'城市管理'"></NavigationBar>
-    <CityList></CityList>
+    <keep-alive>
+      <CityList></CityList>
+    </keep-alive>
   </div>
 </template>
 

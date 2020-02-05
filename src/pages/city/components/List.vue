@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <div class="row" v-for="(item,index) of cities" :key="index">
+    <div class="row" 
+    v-for="(item,index) of cities" 
+    @click="handleClickCity(item)"
+    :key="index">
       <div class="icon">
         <img src="~images/t1.png" alt="">
       </div>
@@ -16,7 +19,7 @@
       </div>
       <div class="ctrl iconfont">
         <div v-if="index==0"></div>
-        <span @click="deleteCity(item.name)" v-else>&#xe606;</span>
+        <span @click.stop="deleteCity(item.name)" v-else>&#xe606;</span>
       </div>
     </div>
     <router-link tag="div" class="btn" to="/city/search">添加城市</router-link>
@@ -37,7 +40,7 @@ export default {
     ...mapState('city',['cities']),
   },
   methods: {
-    ...mapActions('city',['setCities','deleteCity']),
+    ...mapActions('city',['setCities','deleteCity','getCities','setCurrentCity']),
     async updateCityList(){
       // 请求一次改变一次
       let newCities = JSON.parse(JSON.stringify(this.cities));
@@ -60,8 +63,14 @@ export default {
       //   console.log(err)
       // })
     },
+    handleClickCity(city){
+      this.setCurrentCity(city);
+      this.$router.push({path:'/'});
+    }
   },
   mounted(){
+    console.log('citylist');
+    this.getCities();
     this.updateCityList()
   }
 }
@@ -72,7 +81,7 @@ export default {
     margin-top .4rem
     .row
       height 1.14rem
-      padding 0 .43rem 0 .84rem
+      padding 0 .43rem 0 .7rem
       margin-bottom .4rem
       display flex
       justify-content space-between

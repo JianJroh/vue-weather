@@ -2,8 +2,8 @@
   <div class="container">
     <div class="row" v-for="(item,index) of list" :key="index">
       <div class="date">
-        <span>{{ }}</span>
         <span>{{ dayFormat(item.week) }}</span>
+        <span>{{ item.date | dateFormat}}</span>
       </div>
       <div class="weather">
         <img src="~images/t2.png" alt="">
@@ -67,8 +67,8 @@ export default {
 <style lang="stylus" scoped>
   .container
     padding-top .5rem
-    padding-left .3rem
-    padding-right .6rem
+    padding-left .56rem
+    padding-right .56rem
     .row
       height .65rem
       padding-bottom .28rem
@@ -76,6 +76,13 @@ export default {
       justify-content space-between
       align-items center
       font-size .32rem
+      .date
+        width 2.55rem
+      .weather
+        width 2.3rem
+      .temp
+        width 1.45rem
+        text-align right 
       .date,.weather,.temp
         span
           &:nth-child(1)
@@ -83,7 +90,7 @@ export default {
             opacity .9
           &:nth-child(2)
             color #aeb4bd
-            padding-left .2rem
+            padding-left .16rem
       .weather
         img 
           width .6rem
