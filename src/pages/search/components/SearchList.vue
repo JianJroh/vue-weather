@@ -48,7 +48,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('city',['addCity']),
+    ...mapActions('city',['addCity','setCurrentCity']),
     handleSearch(keywords){
       console.log(keywords);
       keywords2Tips(keywords).then(res=>{
@@ -64,11 +64,12 @@ export default {
       let hasCity = this.cities.some(city=>{
         return name === city.name;
       });
+      this.setCurrentCity({name,adcode})
       if(!hasCity){
         console.log('add it');
         this.addCity({name,adcode});
-        this.$router.push({path:'/city'});
       }
+      this.$router.push({path:'/'});
 
     }
   },

@@ -4,6 +4,7 @@ axios.defaults.baseURL = 'https://restapi.amap.com/v3';
 
 const state = {
   cities:[],
+  currentCity:{}
 };
 
 const getters = {
@@ -42,6 +43,9 @@ const actions = {
     cities = cities.filter(city => city.name !== cityName);
     await dispatch('setCities', cities)
   },
+  async setCurrentCity({ commit },city){
+    commit('setCurrentCity', city)
+  }
 }
 
 const mutations = {
@@ -49,6 +53,7 @@ const mutations = {
   newCity: (state,city) => state.cities.push(city),
   removeCity: (state, cityName) =>
     (state.cities = state.cities.filter(city => city.name !== cityName)),
+  setCurrentCity :(state,city) => (state.currentCity = city)
 }
 
 export default {
