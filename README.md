@@ -2,7 +2,22 @@
 
 > 基于Vue.js高仿魅族Flyme8天气应用
 
-## Build Setup
+## 简述
+``` bash
+原型和交互参考flyme8天气app，复刻度达95%以上
+
+页面采用模块化开发，图标图片来源阿里图标库
+
+接口使用的是高德地图的api
+```
+## 线上预览
+
+> gitee page:  [https://jianjroh.gitee.io/vue-weather](https://jianjroh.gitee.io/vue-weather)  (国内访问最佳)
+
+> github page:  [https://jianjroh.github.io/vue-weather](https://jianjroh.github.io/vue-weather)
+
+
+## 运行和构建
 
 ``` bash
 # install dependencies
@@ -18,4 +33,3 @@ npm run build
 npm run build --report
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
