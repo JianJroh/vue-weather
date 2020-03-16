@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div><h2 @click="handleSend">test路由传参</h2></div>
+    <!-- <div><h2 @click="handleSend">test路由传参</h2></div> -->
   </div>
 </template>
 

@@ -68,10 +68,10 @@ async function keywords2Tips(address) {
   if(res.data.status === '1' && res.data.count !== '0'){
     // let city = res.data.tips[0].district.match(/([^省市区]+)市/g);
     let tipsArr = res.data.tips
-    console.log(tipsArr);
+    // console.log(tipsArr);
     return tipsArr;
   }
-  console.log(res);
+  // console.log(res);
 }
 // keywords2Tips().then(res=>{
 //   console.log(res);  

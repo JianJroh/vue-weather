@@ -36,10 +36,10 @@ export default {
   },
   filters:{
     formatAddress({name,district} = {}){
-      console.log(name,district)
+      // console.log(name,district)
       if(!name || !district) return '';
       let districtArr = district.match(/([^省市区县州]+)[省市区县州]/g).reverse();
-      console.log(districtArr);
+      // console.log(districtArr);
       if(district.includes(name)){
         return districtArr.join('，');
       }else{
@@ -52,7 +52,7 @@ export default {
     handleSearch(keywords){
       console.log(keywords);
       keywords2Tips(keywords).then(res=>{
-        console.log(res);
+        // console.log(res);
         this.list = res;
       }).catch(err=>{
 
